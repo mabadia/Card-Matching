@@ -5,6 +5,35 @@ font style
 special hover events 
 match animation 
  */
+/* font-family: 'Faster One', cursive;
+font-family: 'Rye', cursive;
+font-family: 'Yuji Syuku', serif; */
 
- 
- 
+@import url('https://fonts.googleapis.com/css2?family=Faster+One&family=Rye&family=Yuji+Syuku&display=swap');
+
+html {
+    min-height: 100vh;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: radial-gradient(#1982C4, #c45b19);
+}
+
+.page-title {
+    color: #26c026;
+    font-family: 'Rye', cursive;
+    text-align: center;
+    font-size: 4em;
+
+}
+
+.game-info {
+    font-family: 'Yuji Syuku', serif;
+    color: #e8f5fc;
+    font-size: 3em;
+}
