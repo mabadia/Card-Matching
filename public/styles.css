@@ -37,3 +37,33 @@ body {
     color: #e8f5fc;
     font-size: 3em;
 }
+
+.game-container {
+   display: grid; 
+   grid-template-columns: repeat(4,auto);
+   grid-gap: 10px;
+   margin: 50px;
+   justify-content: center;
+}
+.card {
+    position: relative;
+    background-color: white;
+    height: 150px;
+    width: 100px;
+    overflow: hidden;
+}
+.info-container{
+    grid-column: 1/-1;
+    display: flex;
+    justify-content: space-between;
+}
+.timer{
+    grid-column: 1/-1;
+    display: flex;
+    justify-content: center;
+}
+
+.scorpio{
+    height: 150px;
+    width: 150px;
+}
