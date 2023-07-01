@@ -39,12 +39,13 @@ body {
 }
 
 .game-container {
-   display: grid; 
-   grid-template-columns: repeat(4,auto);
-   grid-gap: 10px;
-   margin: 50px;
-   justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(4, auto);
+    grid-gap: 10px;
+    margin: 50px;
+    justify-content: center;
 }
+
 .card {
     position: relative;
     background-color: white;
@@ -52,18 +53,27 @@ body {
     width: 100px;
     overflow: hidden;
 }
-.info-container{
+
+.info-container {
     grid-column: 1/-1;
     display: flex;
     justify-content: space-between;
 }
-.timer{
+
+.timer {
     grid-column: 1/-1;
     display: flex;
     justify-content: center;
 }
 
-.scorpio{
+.scorpio {
     height: 150px;
     width: 150px;
+}
+
+.card.visible .face {
+    transform: rotateY(-180deg);
+}
+.card.visible .face {
+    transform: rotateY(0);
 }
