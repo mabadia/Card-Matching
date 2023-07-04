@@ -44,6 +44,7 @@ body {
     grid-gap: 10px;
     margin: 50px;
     justify-content: center;
+    perspective: 500px;
 }
 
 .card {
@@ -61,13 +62,20 @@ body {
     align-items: center;   
     overflow: hidden;
     backface-visibility: hidden;
+    transition: transform 500ms ease-in-out;
 }
 .front-card{
     transform: rotateX(180deg);
+    display: flex;
+    justify-content: center;
 }
 .img {
-    width: 100px;
-    height: 100px;
+    width: 90px;
+    height: 90px;
+    transition: transform 200ms ease-in-out;
+}
+.front-card:hover .img {
+    transform: rotate(-15deg);
 }
 
 .info-container {
@@ -87,9 +95,9 @@ body {
     width: 150px;
 }
 
-.card.visible .back-card {
+.card:hover .back-card {
     transform: rotateY(-180deg);
 }
-.card.visible .front-card {
+.card:hover .front-card {
     transform: rotateY(0);
 }
