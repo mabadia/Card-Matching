@@ -1,12 +1,15 @@
 // shuffel cards 
-// keeps cards flipped 
-// flip function (check for a match)
+
 // for loop for points 
 // unflip
 // pop up message for end score 
-
-
-
+//global variables
+let cards = document.getElementsByClassName('card');
+let cardClickCount = 0;
+let gameInterval;
+let cardToMatch;
+let cardsArray = Array.from(cards);
+let matchedCards = [];
 
 // click to start
 if (document.readyState === 'loading') {
@@ -22,12 +25,12 @@ function ready() {
     startText.forEach(start => {
         start.addEventListener('click', () => {
             start.classList.remove('visible');
-            startGame()
+            startGame();
         });
     });
     cards.forEach(card => {
         card.addEventListener('click', () => {
-            //game.flipCard(card);
+            clickCard(card);
         });
     });
 }
@@ -42,13 +45,31 @@ function bgMusic() {
     music.loop = true;
     music.play();
 }
+
 // countdown timer
 function countdown() {
     let timer = document.getElementById('time-remaining');
-    let timeRemaining = 100;
+    let timeRemaining = 10;
     timer.innerText = timeRemaining;
     gameInterval = setInterval(() => {
         timeRemaining--;
         timer.innerText = timeRemaining;
-    }, 1000);
-} 
+        if (timeRemaining === 0) {
+            gameOver();
+            return clearInterval(gameInterval);
+        }
+    }, 900);
+}
+// flip function
+function clickCard(card) {
+    if (cardClickCount === 0);
+    cardClickCount++;
+    document.getElementById('flips').innerHTML = cardClickCount;
+    card.classList.add('visible');
+}
+// (check for a match)
+
+// when game ends
+function gameOver() {
+    document.getElementById('gameover').classList.add('visible');
+}
