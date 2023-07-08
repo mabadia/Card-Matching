@@ -4,7 +4,8 @@ let cardClickCount = 0;
 let gameInterval;
 let cardsArray = Array.from(cards);
 let matchedCards = [];
-
+let music = new Audio('../assets/audio/jazz-happy-110855.mp3');
+let final = new Audio('../assets/audio/game over.mp3')
 // click to start
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', ready());
@@ -33,17 +34,17 @@ function startGame() {
     bgMusic();
     countdown();
 }
-// shuffel cards 
-function shuffleCards(cardsArray) { // Fisher-Yates Shuffle Algorithm.
+// shuffel cards // Fisher-Yates Shuffle Algorithm.
+function shuffleCards(cardsArray) { 
     for (let i = cardsArray.length - 1; i > 0; i--) {
-        let randIndex = Math.floor(Math.random() * (i + 1));
-        cardsArray[randIndex].style.order = i;
-        cardsArray[i].style.order = randIndex;
+        let randomIndex = Math.floor(Math.random() * (i + 1));
+        cardsArray[randomIndex].style.order = i;
+        cardsArray[i].style.order = randomIndex;
     }
 }
 // background music
 function bgMusic() {
-    let music = new Audio('../assets/audio/jazz-happy-110855.mp3');
+    final.pause();
     music.loop = true;
     music.play();
 }
@@ -51,7 +52,7 @@ function bgMusic() {
 // countdown timer
 function countdown() {
     let timer = document.getElementById('time-remaining');
-    let timeRemaining = 10;
+    let timeRemaining = 90;
     timer.innerText = timeRemaining;
     gameInterval = setInterval(() => {
         timeRemaining--;
@@ -76,5 +77,7 @@ function clickCard(card) {
 // when game ends
 function gameOver() {
     document.getElementById('gameover').classList.add('visible');
+    music.pause();
+    final.play();
 }
 shuffleCards(cardsArray);
