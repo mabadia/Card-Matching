@@ -2,7 +2,6 @@
 let cards = document.getElementsByClassName('card');
 let cardClickCount = 0;
 let gameInterval;
-let cardToMatch = [];
 let cardsArray = Array.from(cards);
 let matchedCards = [];
 
@@ -61,7 +60,7 @@ function countdown() {
             gameOver();
             return clearInterval(gameInterval);
         }
-    }, 900);
+    }, 1000);
 }
 // flip function
 function clickCard(card) {
@@ -69,27 +68,9 @@ function clickCard(card) {
     cardClickCount++;
     document.getElementById('flips').innerHTML = cardClickCount;
     card.classList.add('visible');
-    card.
+    //if statement 
 }
 // (check for a match)
-function checkForCardMatch(card) {
-    if (cardToMatch === ) {
-        cardToMatch.classList.add('matched');
-        card.classList.add('matched');
-        matchedCards.push(card);
-        matchedCards.push(cardToMatch);
-        cardToMatch = null;
-        checkForVictory();
-    } else {
-        checking = true;
-        setTimeout(() => {
-            cardToMatch.classList.remove('visible');
-            card.classList.remove('visible');
-            cardToMatch = null;
-            checking = false;
-        }, 1000);
-    }
-}
 // unflip
 //victory funtion
 // when game ends
