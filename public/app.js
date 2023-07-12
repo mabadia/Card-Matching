@@ -1,13 +1,14 @@
 //global variables
-let cards = document.getElementsByClassName('card');
+// let cards = document.getElementsByClassName('card');
 let cardClickCount = 0;
 let gameInterval;
-let cardsArray = Array.from(cards);
 let matchedCards = [];
+let flippedCards = [];
+let cardsArray = [];
 let music = new Audio('../assets/audio/jazz-happy-110855.mp3');
 let final = new Audio('../assets/audio/game over.mp3');
 let vMusic = new Audio('../assets/audio/victory-game-classic-arcade-game-116830-[AudioTrimmer.com].mp3');
-let flippedCards = [];
+
 // click to start
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', ready());
@@ -16,15 +17,17 @@ if (document.readyState === 'loading') {
 }
 // ready function
 function ready() {
-    let startText = Array.from(document.getElementsByClassName('start-text'));
     let cards = Array.from(document.getElementsByClassName('card'));
+    let startText = Array.from(document.getElementsByClassName('start-text'));
     let restartButtons = Array.from(document.getElementsByClassName('restart'));
+
     startText.forEach(start => {
         start.addEventListener('click', () => {
             start.classList.remove('visible');
             startGame();
         });
     });
+
     restartButtons.forEach(restart => {
         restart.addEventListener('click', () => {
             restartGame();
@@ -33,9 +36,11 @@ function ready() {
 
     cards.forEach(card => {
         card.addEventListener('click', () => {
-            clickCard(card);
-            if (flippedCards.length === 2) {
-                checkForMatch();
+            if (flippedCards.length < 2 && !card.classList.contains('visible') && !card.classList.contains('matched')) {
+                clickCard(card);
+                if (flippedCards.length === 2) {
+                    checkForMatch();
+                }
             }
         });
     });
@@ -43,29 +48,33 @@ function ready() {
 
 // flip function
 function clickCard(card) {
-    if (cardClickCount === 0);
-    cardClickCount++;
-    document.getElementById('flips').innerHTML = cardClickCount;
+    if (cardClickCount === 0) {
+        cardClickCount++;
+    }
     card.classList.add('visible');
     flippedCards.push(card);
+    document.getElementById('flips').innerHTML = cardClickCount;
 }
-// (check for a match) and/or unflip
+// Check for a match and unflip
 function checkForMatch() {
     const card1 = flippedCards[0];
     const card2 = flippedCards[1];
-    const framework1 = card1.querySelector('.front-card').getAttribute('data-framework');
-    const framework2 = card2.querySelector('.front-card').getAttribute('data-framework');
+    const img1 = card1.querySelector('.front-card img').src;
+    const img2 = card2.querySelector('.front-card img').src;
 
-    if (framework1 === framework2) {
-        matchedCards.push(card1);
-        matchedCards.push(card2);
+    if (img1 === img2) {
+        // Cards match
+        card1.classList.add('matched');
+        card2.classList.add('matched');
+        matchedCards.push(card1, card2);
         flippedCards = [];
 
-        if (matchedCards.length === cards.length) {
+        if (checkForVictory()) {
             clearInterval(gameInterval);
             victory();
         }
     } else {
+        // Cards do not match
         setTimeout(() => {
             card1.classList.remove('visible');
             card2.classList.remove('visible');
@@ -74,6 +83,10 @@ function checkForMatch() {
     }
 }
 
+// Check for victory
+function checkForVictory() {
+    return matchedCards.length === cardsArray.length;
+}
 // on click game starts
 function startGame() {
     shuffleCards(cardsArray);
@@ -109,10 +122,7 @@ function countdown() {
         }
     }, 1000);
 }
-//checking for a victory
-function checkForVictory() {
-    return matchedCards.length === cards.length;
-}
+
 //victory funtion
 function victory() {
     document.getElementById('victory').classList.add('visible');
@@ -137,8 +147,9 @@ function restartGame() {
     document.getElementById('gameover').classList.remove('visible');
     document.getElementById('victory').classList.remove('visible');
 
-    cardsArray.forEach(card => {
+    cards.forEach(card => {
         card.classList.remove('visible');
+        card.classList.remove('matched');
     });
 
     ready();
