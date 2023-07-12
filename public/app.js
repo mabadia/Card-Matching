@@ -1,5 +1,4 @@
 //global variables
-// let cards = document.getElementsByClassName('card');
 let cardClickCount = 0;
 let gameInterval;
 let matchedCards = [];
@@ -48,12 +47,10 @@ function ready() {
 
 // flip function
 function clickCard(card) {
-    if (cardClickCount === 0) {
-        cardClickCount++;
-    }
     card.classList.add('visible');
     flippedCards.push(card);
-    document.getElementById('flips').innerHTML = cardClickCount;
+    cardClickCount++; 
+    document.getElementById('flips').textContent = cardClickCount;
 }
 // Check for a match and unflip
 function checkForMatch() {
@@ -63,7 +60,6 @@ function checkForMatch() {
     const img2 = card2.querySelector('.front-card img').src;
 
     if (img1 === img2) {
-        // Cards match
         card1.classList.add('matched');
         card2.classList.add('matched');
         matchedCards.push(card1, card2);
@@ -89,6 +85,7 @@ function checkForVictory() {
 }
 // on click game starts
 function startGame() {
+    cardsArray = Array.from(document.getElementsByClassName('card'));
     shuffleCards(cardsArray);
     bgMusic();
     countdown();
@@ -142,16 +139,19 @@ function restartGame() {
     cardClickCount = 0;
     matchedCards = [];
     flippedCards = [];
-    document.getElementById('flips').innerHTML = '0';
-    document.getElementById('time-remaining').innerHTML = '90';
+    document.getElementById('flips').textContent = '0';
+    document.getElementById('time-remaining').textContent = '90';
     document.getElementById('gameover').classList.remove('visible');
     document.getElementById('victory').classList.remove('visible');
 
-    cards.forEach(card => {
+    cardsArray.forEach(card => {
         card.classList.remove('visible');
         card.classList.remove('matched');
     });
 
     ready();
+    vMusic.pause();
+    vMusic.currentTime = 0;
+    music.play();
 }
 shuffleCards(cardsArray);
