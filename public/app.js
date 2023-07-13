@@ -132,6 +132,8 @@ function gameOver() {
     document.getElementById('gameover').classList.add('visible');
     music.pause();
     final.play();
+    const restartButton = document.querySelector('#gameover .restart');
+    restartButton.addEventListener('click', restartGame);
 }
 // restart game
 function restartGame() {
